@@ -30,7 +30,7 @@ public class Car {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Setter(value = AccessLevel.NONE)
-	private long idCar;
+	private int idCar;
 	
 	@Column(name = "brand")
 	@NotNull
