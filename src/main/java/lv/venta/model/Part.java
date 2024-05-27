@@ -27,11 +27,11 @@ import lombok.ToString;
 @ToString
 public class Part {
 
-	@Column(name = "idP")
+	@Column(name = "idPa")
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Setter(value = AccessLevel.NONE)
-	private long idP;
+	private long idPa;
 	
 	@Column(name = "price")
 	@NotNull
