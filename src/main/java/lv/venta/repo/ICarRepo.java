@@ -10,8 +10,9 @@ import lv.venta.model.CarType;
 
 
 public interface ICarRepo extends CrudRepository<Car,Integer>{
-	ArrayList<Car>findCarById(int idCar);
-	ArrayList<Car>findCarByBrand(CarBrand brand);
-	ArrayList<Car>findCarByNumber(String carNumber);
-	ArrayList<Car>findCarByTypeAndModel(CarType type,String model);
+	/*ArrayList<Car>findById(int idCar);
+	ArrayList<Car>findByBrand(CarBrand brand);
+	ArrayList<Car>findByCarNumber(String carNumber);
+	ArrayList<Car>findByTypeAndModel(CarType type,String model);
+	*/
 }

@@ -6,7 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
@@ -25,7 +25,7 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @ToString
-public class Part {
+public class Parts {
 
 	@Column(name = "idPa")
 	@Id
@@ -45,11 +45,11 @@ public class Part {
 	@Pattern(regexp = "[A-Z]{1}[a-z]+")
 	private String manufacturer;
 	
-	@ManyToOne //vairakiem part viena masina
+	@OneToOne //vairakiem part viena masina
 	@JoinColumn(name = "idCar")
 	private Car car;
 	
-	public Part(float price, String manufacturer) {
+	public Parts(float price, String manufacturer) {
 		setPrice(price);
 		setManufacturer(manufacturer);
 	}

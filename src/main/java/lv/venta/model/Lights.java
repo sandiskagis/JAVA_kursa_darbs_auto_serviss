@@ -18,7 +18,7 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @ToString
-public class Lights extends Part{
+public class Lights extends Parts{
 	
 	@Column(name = "light_type")
 	private LightType lightType;

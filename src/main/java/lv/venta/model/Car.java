@@ -1,17 +1,16 @@
 package lv.venta.model;
 
-import java.util.Collection;
+
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,6 +35,12 @@ public class Car {
 	@NotNull
 	private CarBrand brand;
 	
+	//@Max(10)
+	@Column(name = "model")
+	@NotNull
+	//@Pattern(regexp = "[A-Za-z0-9]")
+	private String model;
+	
 	@Column(name = "carNumber")
 	@NotNull
 	@Pattern(regexp = "[A-Z]{2}[0-9]{4}")
@@ -45,20 +50,19 @@ public class Car {
 	@NotNull
 	private CarType type;
 	
-	@Column(name = "model")
-	@NotNull
-	@Pattern(regexp = "[A-Z0-9]{5}")
-	private String model;
 	
-	@OneToMany(mappedBy = "car") //vienai masinai vairakas dalas
+	@OneToOne(mappedBy = "car") //vienai masinai viena dala
 	@ToString.Exclude //kad ieklauj otras klases objektu, lai nav cirkulara saite
-	private Collection<Part> parts; 
+	private Parts part; 
 	
-	public Car(CarBrand brand, String carNumber, CarType type, String model) {
+	
+	public Car(CarBrand brand, String model, String carNumber, CarType type, Parts part) {
 		setBrand(brand);
+		setModel(model);
 		setCarNumber(carNumber);
 		setType(type);
-		setModel(model);
+		setPart(part);
+		
 	}
 	
 	
