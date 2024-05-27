@@ -31,7 +31,7 @@ public class Part {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Setter(value = AccessLevel.NONE)
-	private long idPa;
+	private int idPa;
 	
 	@Column(name = "price")
 	@NotNull
