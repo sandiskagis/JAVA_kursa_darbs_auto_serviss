@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.Collections;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -25,7 +24,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Table(name = "ProfessorTable")
-@Entity
 @Getter
 @Setter
 @NoArgsConstructor
@@ -54,7 +52,7 @@ public class Mechanic extends Person{
 		setLicenceNo(licenceNo);
 	}
 	
-	@OneToMany(mappedBy = "mechanic")
+	/*@OneToMany(mappedBy = "mechanic")
 	@ToString.Exclude
 	private Collection<Car> cars = new ArrayList<Car>();
 	
@@ -66,6 +64,6 @@ public class Mechanic extends Person{
 	public void removeCar(Car car) {
 		if(cars.contains(car))
 			cars.remove(car);
-	}
+	}*/
 	
 }
