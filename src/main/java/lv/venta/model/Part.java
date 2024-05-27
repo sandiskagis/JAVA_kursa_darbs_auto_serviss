@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
@@ -42,6 +44,10 @@ public class Part {
 	@Size(min = 2, max = 40)
 	@Pattern(regexp = "[A-Z]{1}[a-z]+")
 	private String manufacturer;
+	
+	@ManyToOne //vairakiem part viena masina
+	@JoinColumn(name = "idCar")
+	private Car car;
 	
 	public Part(float price, String manufacturer) {
 		setPrice(price);
