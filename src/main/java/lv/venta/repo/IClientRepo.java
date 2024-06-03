@@ -7,9 +7,13 @@ import org.springframework.data.repository.CrudRepository;
 import lv.venta.model.Client;
 
 public interface IClientRepo extends CrudRepository<Client, Integer>{
-	ArrayList<Client> findByCarIdCar(int id);
 
-	ArrayList<Client> findByClientPhoneNo(String phoneNo);
+	Client findById(int id);
 	
-	ArrayList<Client> findByClientNameAndSurname(String name, String surname);
+	//ArrayList<Client> findByCarIdCar(int id);
+
+	ArrayList<Client> findByPhoneNo(String phoneNo);
+	
+	ArrayList<Client> findByNameAndSurname(String name, String surname);
+	
 }

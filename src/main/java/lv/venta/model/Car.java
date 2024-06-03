@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
@@ -47,19 +49,30 @@ public class Car {
 	
 	@Column(name = "model")
 	@NotNull
-	@Pattern(regexp = "[A-Z0-9]{5}")
+	@Pattern(regexp = "[A-Z0-9]+")
 	private String model;
 	
-	@OneToMany(mappedBy = "car") //vienai masinai vairakas dalas
-	@ToString.Exclude //kad ieklauj otras klases objektu, lai nav cirkulara saite
+	@OneToMany(mappedBy = "car")
+	@ToString.Exclude
 	private Collection<Part> parts; 
 	
-	public Car(CarBrand brand, String carNumber, CarType type, String model) {
+	@ManyToOne
+	@ToString.Exclude
+	@JoinColumn(name ="IdC")
+	private Client client; 
+	
+	@ManyToOne
+	@ToString.Exclude
+	@JoinColumn(name ="IdM")
+	private Mechanic mechanic;
+	
+	
+	public Car(CarBrand brand, String carNumber, CarType type, String model, Client client, Mechanic mechanic) {
 		setBrand(brand);
 		setCarNumber(carNumber);
 		setType(type);
 		setModel(model);
+		setClient(client);
+		setMechanic(mechanic);
 	}
-	
-	
 }
