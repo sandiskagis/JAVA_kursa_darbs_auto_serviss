@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -19,9 +20,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Table(name = "PersomTable")
+@Table(name = "ClientTable")
 @Getter
 @Setter
+@Entity
 @NoArgsConstructor
 @ToString
 public class Client extends Person{
@@ -31,13 +33,11 @@ public class Client extends Person{
 	@Setter(value = AccessLevel.NONE)
 	private int idC;
 	
-	
-	
 	public Client(String name, String surname, String phoneNo) {
 		super(name, surname, phoneNo);
 	}
 	
-	/*@OneToMany(mappedBy = "client")
+	@OneToMany(mappedBy = "client")
 	@ToString.Exclude
 	private Collection<Car> cars = new ArrayList<Car>();
 	
@@ -49,5 +49,5 @@ public class Client extends Person{
 	public void removeCar(Car car) {
 		if(cars.contains(car))
 			cars.remove(car);
-	}*/
+	}
 }
