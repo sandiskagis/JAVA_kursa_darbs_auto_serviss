@@ -5,14 +5,15 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import jakarta.servlet.http.Part;
+import lv.venta.model.Client;
+import lv.venta.model.Mechanic;
 import lv.venta.model.Car;
 import lv.venta.model.CarBrand;
 import lv.venta.model.CarType;
-import lv.venta.model.Parts;
+import lv.venta.repo.IClientRepo;
+import lv.venta.repo.IMechanicRepo;
 import lv.venta.repo.ICarRepo;
-import lv.venta.repo.IPartsRepo;
-import lv.venta.repo.IPartsRepo;
+
 
 @SpringBootApplication
 public class KursaDarbsAutoServissApplication {
@@ -20,28 +21,36 @@ public class KursaDarbsAutoServissApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(KursaDarbsAutoServissApplication.class, args);
 	}
+	
 	@Bean
-	public CommandLineRunner testDatabaseLayer(ICarRepo carRepo, IPartsRepo partsRepo)
-	{
+	public CommandLineRunner testDatabaseLayer(IClientRepo clientRepo, IMechanicRepo mechRepo, ICarRepo carRepo) {
 		return new CommandLineRunner() {
 
 			@Override
 			public void run(String... args) throws Exception {
-				
-				Parts pa1 = new Parts(25.22f, "Bosch");
-				Parts pa2 = new Parts(43.33f, "Denso");
-				partsRepo.save(pa1);
-				partsRepo.save(pa2);
-				
-				
-				Car car1 = new Car(CarBrand.Audi,"A6","NA1002",CarType.sedan, pa1);// TODO Auto-generated method stub
-				Car car2 = new Car(CarBrand.BMW,"e36320i","NE5555",CarType.universal, pa1);
-				Car car3 = new Car(CarBrand.BMW,"e346","MM1111",CarType.universal, pa2);
-				
+				Mechanic mech1 = new Mechanic("Karlis", "Labotajs", "21111111", (float)5, "M123456");
+				mechRepo.save(mech1);
+				Mechanic mech2 = new Mechanic("Lauris", "Uzgrieznis", "22111111", (float)8.4, "M654321");
+				mechRepo.save(mech2);
+				Client client1 = new Client("Janis", "Berzins", "23333333");
+				clientRepo.save(client1);
+				Client client2 = new Client("Pēteris", "Kļaviņš", "24444444");
+				clientRepo.save(client2);
+				Car car1 = new Car(CarBrand.Audi, "AA1234", CarType.coupe, "R8", client2, mech2);
 				carRepo.save(car1);
+				Car car2 = new Car(CarBrand.Opel, "AB1234", CarType.sedan, "VECTRA", client1, mech1);
 				carRepo.save(car2);
-				carRepo.save(car2);
+				client1.addCar(car2);
+				client2.addCar(car1);
+				clientRepo.save(client1);
+				clientRepo.save(client2);
+				mech1.addCar(car2);
+				mech2.addCar(car1);
+				mechRepo.save(mech1);
+				mechRepo.save(mech2);
 			}
+			
 		};
-}
+	}
+
 }

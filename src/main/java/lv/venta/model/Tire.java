@@ -18,7 +18,7 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @ToString
-public class Tire extends Parts {
+public class Tire extends Part {
     
 	@Column(name = "tire_size")
 	private TireSize tireSize;

@@ -1,16 +1,19 @@
 package lv.venta.model;
 
-
+import java.util.Collection;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,17 +32,11 @@ public class Car {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Setter(value = AccessLevel.NONE)
-	private int idCar;
+	private long idCar;
 	
 	@Column(name = "brand")
 	@NotNull
 	private CarBrand brand;
-	
-	//@Max(10)
-	@Column(name = "model")
-	@NotNull
-	//@Pattern(regexp = "[A-Za-z0-9]")
-	private String model;
 	
 	@Column(name = "carNumber")
 	@NotNull
@@ -50,20 +47,32 @@ public class Car {
 	@NotNull
 	private CarType type;
 	
+	@Column(name = "model")
+	@NotNull
+	@Pattern(regexp = "[A-Z0-9]+")
+	private String model;
 	
-	@OneToOne(mappedBy = "car") //vienai masinai viena dala
-	@ToString.Exclude //kad ieklauj otras klases objektu, lai nav cirkulara saite
-	private Parts part; 
+	@OneToMany(mappedBy = "car")
+	@ToString.Exclude
+	private Collection<Part> parts; 
+	
+	@ManyToOne
+	@ToString.Exclude
+	@JoinColumn(name ="IdC")
+	private Client client; 
+	
+	@ManyToOne
+	@ToString.Exclude
+	@JoinColumn(name ="IdM")
+	private Mechanic mechanic;
 	
 	
-	public Car(CarBrand brand, String model, String carNumber, CarType type, Parts part) {
+	public Car(CarBrand brand, String carNumber, CarType type, String model, Client client, Mechanic mechanic) {
 		setBrand(brand);
-		setModel(model);
 		setCarNumber(carNumber);
 		setType(type);
-		setPart(part);
-		
+		setModel(model);
+		setClient(client);
+		setMechanic(mechanic);
 	}
-	
-	
 }
